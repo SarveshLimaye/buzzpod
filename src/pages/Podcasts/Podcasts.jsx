@@ -16,7 +16,7 @@ export default function Podcasts() {
       const prov = new ethers.providers.Web3Provider(provider);
       const signer = prov.getSigner();
       const contract = new ethers.Contract(
-        "0xbC3640c29403A8e5A74528f127d676AFA7e35dae",
+        "0x94955665Db12D4a2324be6Ae9258Da02F3b32821",
         createpodcastabi,
         signer
       );
