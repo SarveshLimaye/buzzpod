@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home";
 import Podcasts from "./pages/Podcasts/Podcasts";
 import AddPodcast from "./pages/AddPodcast/AddPodcast";
 import NavBar from "./components/Navbar/NavBar";
+import Footer from "./components/Footer/Footer";
 import "./App.css";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/add" element={<AddPodcast />} />
           </Route>
         </Routes>
+        <Footer />
       </Router>
     </div>
   );
