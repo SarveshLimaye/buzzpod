@@ -66,7 +66,7 @@ export default function Form() {
     const prov = new ethers.providers.Web3Provider(provider);
     const signer = prov.getSigner()
     const contract = new ethers.Contract(
-      "0xFD6eE0a25d416Cc29d734e31766A38ae9784c9B4",
+      "0xbC3640c29403A8e5A74528f127d676AFA7e35dae",
       createPodcastabi,
       signer
     )
