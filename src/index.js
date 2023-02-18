@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { AuthProvider } from "@arcana/auth";
+import { ProvideAuth } from "@arcana/auth-react";
 
 const colors = {
   brand: {
@@ -26,13 +28,17 @@ const config = {
 
 const theme = extendTheme({ colors, config })
 
+const provider = new AuthProvider(`${process.env.REACT_APP_ARCANA_APPID}`)
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <ProvideAuth provider={provider}>
   <React.StrictMode>
   <ChakraProvider theme={theme}>
     <App />
     </ChakraProvider>
   </React.StrictMode>
+  </ProvideAuth>
 );
 
 // If you want to start measuring performance in your app, pass a function

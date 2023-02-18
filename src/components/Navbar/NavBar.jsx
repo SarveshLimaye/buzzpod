@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {
     chakra,
     Box,
@@ -11,12 +11,25 @@ import {
     VStack,
     IconButton,
     CloseButton,
+    Avatar
   } from "@chakra-ui/react";
   import { AiOutlineMenu } from "react-icons/ai";
+  import { useAuth } from "@arcana/auth-react";
+
 
 export default function NavBar() {
+    const { isLoggedIn, connect, user} = useAuth()
     const bg = useColorModeValue("white", "gray.800");
     const mobileNav = useDisclosure();
+    const onConnectClick = async () => {
+      try {
+        await connect();
+        console.log(user );
+      } catch (err) {
+        console.log({ err });
+        // Handle error
+      }
+    };
   return (
     <React.Fragment>
       <chakra.header
@@ -60,9 +73,13 @@ export default function NavBar() {
               alignItems="center"
             > <Button variant="ghost">Add Podcasts</Button></chakra.a>
             </HStack>
-            <Button colorScheme="brand" size="sm">
+           {!isLoggedIn ? ( <Button colorScheme="brand" size="sm" onClick={onConnectClick}>
               Sign in
-            </Button>
+            </Button>) : ( <Avatar
+              size="sm"
+              name={user?.name}
+              src={user?.picture}
+            />)}
             <Box display={{ base: "inline-flex", md: "none" }}>
               <IconButton
                 display={{ base: "flex", md: "none" }}
