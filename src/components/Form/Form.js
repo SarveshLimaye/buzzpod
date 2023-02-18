@@ -13,6 +13,8 @@ import {
   FormLabel,
 } from "@chakra-ui/react"
 
+import { Web3Storage } from "web3.storage"
+
 export default function Form() {
   const [title, setTitle] = useState("")
   const [speaker, setSpeaker] = useState("")
@@ -20,6 +22,38 @@ export default function Form() {
   const [date, setDate] = useState("")
   const [cover, setCover] = useState("")
   const [audio, setAudio] = useState("")
+  const [covercid, setCovercid] = useState("")
+  const [audiocid, setAudiocid] = useState("")
+
+  function makeStorageClient() {
+    return new Web3Storage({ token: process.env.REACT_APP_FILECOIN_TOKEN })
+  }
+
+  async function storeCover(files) {
+    const client = makeStorageClient()
+    const cid = await client.put(files)
+    console.log("stored files with cid:", cid)
+    setCovercid(cid)
+    return cid
+  }
+
+  async function storeAudio(files) {
+    const client = makeStorageClient()
+    const cid = await client.put(files)
+    console.log("stored files with cid:", cid)
+    setAudiocid(cid)
+    return cid
+  }
+
+  function onSubmitCover() {
+    let cidOfCover = storeCover(cover)
+    console.log(cidOfCover)
+  }
+
+  function onSubmitAudio() {
+    let cidOfAudio = storeAudio(audio)
+    console.log(cidOfAudio)
+  }
 
   return (
     <div>
@@ -159,16 +193,7 @@ export default function Form() {
                     type="datetime-local"
                     onChange={(e) => setDate(e.target.value)}
                   />
-                  <FormLabel
-                    fontSize="sm"
-                    fontWeight="md"
-                    color="gray.700"
-                    _dark={{
-                      color: "gray.50",
-                    }}
-                  >
-                    Upload cover image
-                  </FormLabel>
+
                   <input
                     type="file"
                     onChange={(e) => {
@@ -176,16 +201,18 @@ export default function Form() {
                     }}
                   />
 
-                  <FormLabel
+                  <Button
                     fontSize="sm"
                     fontWeight="md"
                     color="gray.700"
                     _dark={{
                       color: "gray.50",
                     }}
+                    width="50%"
+                    onClick={onSubmitCover}
                   >
-                    Upload podcast file
-                  </FormLabel>
+                    Upload cover image
+                  </Button>
 
                   <input
                     type="file"
@@ -193,6 +220,20 @@ export default function Form() {
                       setAudio(e.target.files)
                     }}
                   />
+
+                  <Button
+                    fontSize="sm"
+                    fontWeight="md"
+                    color="gray.700"
+                    _dark={{
+                      color: "gray.50",
+                    }}
+                    align="center"
+                    width="50%"
+                    onClick={onSubmitAudio}
+                  >
+                    Upload podcast file
+                  </Button>
                 </Stack>
                 <Box
                   px={{
