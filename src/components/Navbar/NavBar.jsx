@@ -1,44 +1,38 @@
-import React,{useState} from 'react'
+import React, { useState } from "react";
 import {
-    chakra,
-    Box,
-    Flex,
-    useColorModeValue,
-    VisuallyHidden,
-    HStack,
-    Button,
-    useDisclosure,
-    VStack,
-    IconButton,
-    CloseButton,
-    Avatar
-  } from "@chakra-ui/react";
-  import { AiOutlineMenu } from "react-icons/ai";
-  import { useAuth } from "@arcana/auth-react";
-
+  chakra,
+  Box,
+  Flex,
+  useColorModeValue,
+  VisuallyHidden,
+  HStack,
+  Button,
+  useDisclosure,
+  VStack,
+  IconButton,
+  CloseButton,
+  Avatar,
+} from "@chakra-ui/react";
+import { AiOutlineMenu } from "react-icons/ai";
+import { useAuth } from "@arcana/auth-react";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
-    const { isLoggedIn, connect, user} = useAuth()
-    const bg = useColorModeValue("white", "gray.800");
-    const mobileNav = useDisclosure();
-    const onConnectClick = async () => {
-      try {
-        await connect();
-        console.log(user );
-      } catch (err) {
-        console.log({ err });
-        // Handle error
-      }
-    };
+  const { isLoggedIn, connect, user } = useAuth();
+  const bg = useColorModeValue("white", "gray.800");
+  const mobileNav = useDisclosure();
+  const onConnectClick = async () => {
+    try {
+      await connect();
+      console.log(user);
+    } catch (err) {
+      console.log({ err });
+      // Handle error
+    }
+  };
   return (
     <React.Fragment>
-      <chakra.header
-        bg={bg}
-        w="full"
-        h = "100px"
-        px={{ base: 6, sm: 4 }}
-        py={9}
-      >
+      <chakra.header bg={bg} w="full" h="100px" px={{ base: 6, sm: 4 }} py={5}>
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
             <chakra.a
@@ -47,39 +41,52 @@ export default function NavBar() {
               display="flex"
               alignItems="center"
             >
-              <VisuallyHidden>Choc</VisuallyHidden>
+              <VisuallyHidden>Buzzpod</VisuallyHidden>
             </chakra.a>
-            <chakra.h3 fontSize='35px' fontWeight="l" ml="2" color="brand.00">
-              Buzzpod
-            </chakra.h3>
+            <Link to="/">
+              <chakra.h3 fontSize="35px" fontWeight="0" ml="2" color="brand.00">
+                Buzzpod
+              </chakra.h3>
+            </Link>
           </Flex>
-          <HStack display="flex" alignItems="center" spacing={1}>
+          <HStack display="flex" alignItems="center" spacing={1} mr={5}>
             <HStack
               spacing={1}
               mr={1}
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <chakra.a
-              href="/podcasts"
-              title="Choc Home Page"
-              display="flex"
-              alignItems="center"
-            ><Button variant="ghost">Podcasts</Button></chakra.a>
-            {isLoggedIn ?  <chakra.a
-              href="/add"
-              title="Choc Home Page"
-              display="flex"
-              alignItems="center"
-            > <Button variant="ghost">Add Podcasts</Button></chakra.a> : null}
+              <Link to="/podcasts">
+                <chakra.a
+                  href="/podcasts"
+                  title="Podcasts"
+                  display="flex"
+                  alignItems="center"
+                >
+                  <Button variant="ghost">Podcasts</Button>
+                </chakra.a>
+              </Link>
+
+              {isLoggedIn ? (
+                <chakra.a
+                  href="/add"
+                  title="Add Podcasts"
+                  display="flex"
+                  alignItems="center"
+                >
+                  <Link to="/add">
+                    <Button variant="ghost">Add Podcasts</Button>
+                  </Link>
+                </chakra.a>
+              ) : null}
             </HStack>
-           {!isLoggedIn ? ( <Button colorScheme="brand" size="sm" onClick={onConnectClick}>
-              Sign in
-            </Button>) : ( <Avatar
-              size="sm"
-              name={user?.name}
-              src={user?.picture}
-            />)}
+            {!isLoggedIn ? (
+              <Button colorScheme="brand" size="sm" onClick={onConnectClick}>
+                Sign in
+              </Button>
+            ) : (
+              <Avatar size="sm" name={user?.name} src={user?.picture} />
+            )}
             <Box display={{ base: "inline-flex", md: "none" }}>
               <IconButton
                 display={{ base: "flex", md: "none" }}
@@ -111,13 +118,17 @@ export default function NavBar() {
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
+                <Link to="/podcasts">
+                  <Button w="full" variant="ghost">
+                    Podcasts
+                  </Button>
+                </Link>
+                <Link to="/add">
+                  <Button w="full" variant="ghost">
+                    Add Podcast
+                  </Button>
+                </Link>
 
-                <Button w="full" variant="ghost">
-                  Podcasts
-                </Button>
-                <Button w="full" variant="ghost">
-                  Add Podcast
-                </Button>
                 <Button w="full" variant="ghost">
                   Sign in
                 </Button>
@@ -127,5 +138,5 @@ export default function NavBar() {
         </Flex>
       </chakra.header>
     </React.Fragment>
-  )
+  );
 }
