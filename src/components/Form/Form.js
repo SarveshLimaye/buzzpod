@@ -12,7 +12,9 @@ import {
   FormControl,
   FormLabel,
 } from "@chakra-ui/react"
-
+import { useAuth } from "@arcana/auth-react";
+import createPodcastabi from "../../utils/createpodcastabi.json";
+import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage"
 
 export default function Form() {
@@ -24,6 +26,10 @@ export default function Form() {
   const [audio, setAudio] = useState("")
   const [covercid, setCovercid] = useState("")
   const [audiocid, setAudiocid] = useState("")
+  const { provider,user } = useAuth()
+
+
+  console.log(user)
 
   function makeStorageClient() {
     return new Web3Storage({ token: process.env.REACT_APP_FILECOIN_TOKEN })
@@ -53,6 +59,30 @@ export default function Form() {
   function onSubmitAudio() {
     let cidOfAudio = storeAudio(audio)
     console.log(cidOfAudio)
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const prov = new ethers.providers.Web3Provider(provider);
+    const signer = prov.getSigner()
+    const contract = new ethers.Contract(
+      "0xFD6eE0a25d416Cc29d734e31766A38ae9784c9B4",
+      createPodcastabi,
+      signer
+    )
+    const account = user?.address
+    const tx = await contract.createPodcast(
+        title,
+        description,
+        covercid,
+        speaker,
+        account,
+        date,
+        0,
+        audiocid
+    )
+
+    console.log(tx)
   }
 
   return (
@@ -254,6 +284,7 @@ export default function Form() {
                       shadow: "",
                     }}
                     fontWeight="md"
+                    onClick={onSubmit}
                   >
                     Save
                   </Button>
