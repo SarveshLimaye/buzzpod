@@ -66,12 +66,12 @@ export default function NavBar() {
               display="flex"
               alignItems="center"
             ><Button variant="ghost">Podcasts</Button></chakra.a>
-             <chakra.a
+            {isLoggedIn ?  <chakra.a
               href="/add"
               title="Choc Home Page"
               display="flex"
               alignItems="center"
-            > <Button variant="ghost">Add Podcasts</Button></chakra.a>
+            > <Button variant="ghost">Add Podcasts</Button></chakra.a> : null}
             </HStack>
            {!isLoggedIn ? ( <Button colorScheme="brand" size="sm" onClick={onConnectClick}>
               Sign in
