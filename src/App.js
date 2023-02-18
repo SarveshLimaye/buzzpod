@@ -4,6 +4,7 @@ import Podcasts from "./pages/Podcasts/Podcasts";
 import AddPodcast from "./pages/AddPodcast/AddPodcast";
 import NavBar from "./components/Navbar/NavBar";
 import "./App.css";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/podcasts" element={<Podcasts />} />
-          <Route path="/add" element={<AddPodcast />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/add" element={<AddPodcast />} />
+          </Route>
         </Routes>
       </Router>
     </div>
