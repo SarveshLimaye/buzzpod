@@ -112,7 +112,7 @@ export default function IndividualPodcast() {
           <Image
             rounded={'md'}
             alt={'podcast image'}
-            src={`https://ipfs.io/ipfs/${imageurl}/img2.jpeg`}
+            src={`https://ipfs.io/ipfs/${imageurl}/img2.jpg`}
             fit={'cover'}
             align={'center'}
             w={'100%'}
