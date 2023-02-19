@@ -45,5 +45,13 @@ https://github.com/[YOUR_USER_ACCOUNT]/buzzpod
 CreatePodcast:- 0x5BB1458eeeD0148a76Dc48c695cDaA7B5e81EbE2
 ```
 
+ ## List of all Smart Contracts deployed on fvm testnet :zap:
+
+```
+CreatePodcast:- 0x9452C28fC02370a15a279f325C84EC14a8278dA3
+```
+
+
+
  ### Do drop a star if you loved this project :star:
 
