@@ -6,6 +6,7 @@ import { BsFillBriefcaseFill } from "react-icons/bs";
 import podcastsabi from '../../utils/podcastsabi.json';
 import { Grid, GridItem } from '@chakra-ui/react'
 import { useMediaQuery } from '@chakra-ui/react'
+import { useAuth } from "@arcana/auth-react";
 
 const Podcastscard = ({individualPodcast}) => {
 
@@ -18,11 +19,13 @@ const Podcastscard = ({individualPodcast}) => {
   const [listeners,setListeners] = useState("");
   const [podcastlink,setPodcastlink] = useState("");
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
+  
+  const {provider} = useAuth();
 
   useEffect(()=>{
     const getPodcastDetails = async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const prov = new ethers.providers.Web3Provider(provider);
+      const signer = prov.getSigner();
       const contract = new ethers.Contract(individualPodcast, podcastsabi, signer);
       contract
       .name()
