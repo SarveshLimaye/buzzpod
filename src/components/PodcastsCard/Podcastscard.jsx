@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { Box, Flex, Icon, Image, chakra } from "@chakra-ui/react";
 import { ethers } from "ethers";
+import { Web3Storage } from 'web3.storage'
 import { MdEmail, MdHeadset, MdLocationOn ,MdSpeakerPhone, MdPeopleAlt} from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import podcastsabi from '../../utils/podcastsabi.json';
@@ -22,7 +23,10 @@ const Podcastscard = ({individualPodcast}) => {
   
   const {provider} = useAuth();
 
+ 
+
   useEffect(()=>{
+    
     const getPodcastDetails = async () => {
       const prov = new ethers.providers.Web3Provider(provider);
       const signer = prov.getSigner();
@@ -85,7 +89,7 @@ const Podcastscard = ({individualPodcast}) => {
         console.log(err);
       });
     }
-    getPodcastDetails();
+    getPodcastDetails()
   },[])
   return (
     <Flex
@@ -111,7 +115,7 @@ const Podcastscard = ({individualPodcast}) => {
         h={56}
         fit="cover"
         objectPosition="center"
-        src={imageurl}
+        src={`https://ipfs.io/ipfs/${imageurl}/img2.jpg`}
         alt="avatar"
       />
   
