@@ -45,7 +45,7 @@ const SocialButton = ({
 export default function Footer() {
   return (
     <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
+      bg={useColorModeValue("white", "gray.800")}
       color={useColorModeValue("gray.700", "gray.200")}
       marginTop={"auto"}
     >
@@ -73,7 +73,11 @@ export default function Footer() {
             </a>
           </SocialButton>
           <SocialButton label={"YouTube"}>
-            <a href="https://youtube.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://youtu.be/dnmbFcSUTM0"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaYoutube />
             </a>
           </SocialButton>
