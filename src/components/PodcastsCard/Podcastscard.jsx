@@ -8,6 +8,8 @@ import podcastsabi from '../../utils/podcastsabi.json';
 import { Grid, GridItem } from '@chakra-ui/react'
 import { useMediaQuery } from '@chakra-ui/react'
 import { useAuth } from "@arcana/auth-react";
+import { Button, ButtonGroup } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const Podcastscard = ({individualPodcast}) => {
 
@@ -20,10 +22,12 @@ const Podcastscard = ({individualPodcast}) => {
   const [listeners,setListeners] = useState("");
   const [podcastlink,setPodcastlink] = useState("");
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
-  
+  const navigate = useNavigate();
   const {provider} = useAuth();
 
- 
+  const handleClick = () =>{
+    navigate(`podcast/${individualPodcast}`);
+  }
 
   useEffect(()=>{
     
@@ -176,6 +180,19 @@ const Podcastscard = ({individualPodcast}) => {
           <chakra.h1 px={2} fontSize="sm">
             100+
           </chakra.h1>
+        </Flex>
+        
+        <Flex
+          alignItems="center"
+          mt={4}
+          color="gray.700"
+          _dark={{
+            color: "gray.200",
+          }}
+        >
+        <Button colorScheme='teal' size='md' onClick={handleClick}>
+          Listen
+        </Button>
         </Flex>
       </Box>
     </Box>

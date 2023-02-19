@@ -6,6 +6,7 @@ import NavBar from "./components/Navbar/NavBar";
 import Footer from "./components/Footer/Footer";
 import "./App.css";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import IndividualPodcast from "./pages/IndividualPodcast/IndividualPodcast";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/podcasts" element={<Podcasts />} />
+          <Route path="/podcasts/podcast/:id" element={<IndividualPodcast />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/add" element={<AddPodcast />} />
           </Route>
