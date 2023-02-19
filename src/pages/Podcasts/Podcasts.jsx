@@ -6,13 +6,15 @@ import createpodcastabi from '../../utils/createpodcastabi.json'
 import Podcastscard from '../../components/PodcastsCard/Podcastscard';
 import { Grid, GridItem } from '@chakra-ui/react'
 import { useMediaQuery } from '@chakra-ui/react'
+import { useAuth } from "@arcana/auth-react";
 
 export default function Podcasts() {
+  const {provider} = useAuth();
   useEffect (()=>{
     const handleClick = () =>{
       setPodcastlist(true);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const prov = new ethers.providers.Web3Provider(provider);
+      const signer = prov.getSigner();
       const contract = new ethers.Contract(
         "0xbC3640c29403A8e5A74528f127d676AFA7e35dae",
         createpodcastabi,
